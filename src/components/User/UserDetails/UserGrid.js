@@ -1,31 +1,26 @@
 import React,{Component} from 'react'
 import {Table} from 'react-bootstrap';
-import Axios from 'axios';
+
+import {connect} from 'react-redux'
 class UserGrid extends Component {
     state = {
         users:[],
         isLoaded:false
     }
-    componentDidMount() {
-        Axios.get('https://jsonplaceholder.typicode.com/users').then(response=>{
-            this.setState({users:response.data, isLoaded:true});
-            console.log(response.data[0].address.city);
-        });
-        
-    }
+    
     render() {
-        let UserData = this.state.users.map((user,key)=> {
+        let UserData = Object.keys(this.props.userDetails).map((user,key)=> {
             return (
-                <tr key={user.id+"id"}>
-                    <td>{user.name}</td>
-                    <td>{user.username}</td>
-                    <td>{user.email}</td>
-                    <td>{user.phone}</td>
-                    <td>{user.address.city}</td>
+                <tr key={this.props.userDetails[user].id+"id"}>
+                    <td>{this.props.userDetails[user].name}<p onClick={this.props.addUsers}>Add User</p></td>
+                    <td>{this.props.userDetails[user].username}</td>
+                    <td>{this.props.userDetails[user].email}</td>
+                    <td>{this.props.userDetails[user].phone}</td>
+                    <td>{this.props.userDetails[user].address.city}</td>
                 </tr>
             )
         });
-        if(!this.state.isLoaded) {
+        if(!this.props.isLoaded) {
             UserData = (
             <tr>
                 <td>Loading...</td>
@@ -51,4 +46,16 @@ class UserGrid extends Component {
     }
 }
 
-export default UserGrid
+const mapStatesToProps = (state) =>{
+    return {
+        userDetails:state.users,
+        isLoaded:state.isLoaded
+    }
+}
+
+/*const connectDispatchToProps=dispatch=>{
+    return {
+        addUsers:data=>dispatch(data)
+    }
+}*/
+export default connect(mapStatesToProps)(UserGrid)

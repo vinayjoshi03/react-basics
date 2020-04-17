@@ -3,10 +3,11 @@ import {Row, Col} from 'react-bootstrap';
 import PostGrid from './Post/PostGrid'
 import AddPost from './Post/AddPost'
 import ModelComponent from '../UI/ModalComponent/ModalComponent'
+import {connect} from 'react-redux'
 class Posts extends Component {
     constructor(props) {
         super(props);
-        this.disableSubmit=true;
+        //this.disableSubmit=true;
         this.state = {
             loadedPost:null,
             posts:[],
@@ -14,51 +15,73 @@ class Posts extends Component {
             postTitle:'',
             modelBody:'',
             showModel: false,
-            disableSubmit: this.disableSubmit, 
-            errorMessage:[]
+            disableSubmit: true, 
+            errorMessage:{}
         }
     }
     
     validateFields(key, value) {
-        let errors = [];
+        let errors = this.validate(key, value, this.state.errorMessage);
+        if(Object.keys(errors).length<=0) {
+            this.setState({disableSubmit:false, errorMessage:errors});
+        } else {
+            this.setState({disableSubmit:true, errorMessage:errors});
+        }
+    }
+    
+    validate(key, value, errorData) {
+        let errors = errorData;
         var letters = /^[A-Za-z ]+$/;
         switch(key){
             case 'title':
-        
-                    if(value === '' || value.length<=0) {
-                        errors[key] = "Title field is required";
-                        this.setState({disableSubmit:true});
-                    } 
-                    if(!new RegExp(letters).test(value) && value!=='') {
-                        errors[key] = "Title should contain only charactors and spaces";
-                        this.setState({disableSubmit:true});
-                    } 
-                    
-                    if(value === '' || typeof errors['title'] == 'undefined'){
-                        let index = errors.indexOf('title'); 
-                        if (index > -1) {
-                            errors.splice(index, 1);
-                        }
+                    if(!value) {
+                        errors[key]="Title field is required";
+                    } else if(value !='' && !new RegExp(letters).test(value)) {
+                            errors[key]="Title should contain only charactors and spaces"
+                    } else {
+                        delete errors[key];
                     }
                     
+                    break;
+            case 'description':        
+                    if(value === '') {
+                        errors[key]="Description is required field";
+                    
+                    } else {
+                        delete errors[key];
+                    }
                     
                     break;
-            default: 
+            case 'status':        
+                    if(value!=1) {
+                        errors[key]="Default status should be active";
+                    } else {
+                        delete errors[key];
+                    }
                     
-                    errors = [];
+                    break;
         }
-        console.log(this.state.disableSubmit);
-        this.setState({errorMessage:errors});
-        
+        return errors;
     }
-    
+
     handleViewPost(postid){
         
         this.setState({selectedPost:postid, showModel:true});
     }
 
     async handleSubmit(data){
-
+        let errors = {};
+        Object.keys(data).map((key, index)=>{
+            let error = this.validate(key, data[key], this.state.errorMessage);
+            if(typeof error[key] != 'undefined') {
+                errors[key]=error[key];
+            }
+        });
+        if(Object.keys(errors).length<=0) {
+            this.setState({disableSubmit:false, errorMessage:errors});
+        } else {
+            this.setState({disableSubmit:true, errorMessage:errors});
+        }
         if(!this.state.disableSubmit) {
             const body = 'Loading...';
             this.setState({showModel:true,modelBody:body,postTitle:"Add Post"});
@@ -74,7 +97,6 @@ class Posts extends Component {
     }
     
     render() {
-        //this.disableSubmit = this.state.disableSubmit;
         let loadingData=(props)=>{
             if(props.currentPage === 'post-list') {
                 return(
@@ -99,7 +121,9 @@ class Posts extends Component {
         }
         return (
             <Row>
+                <p onClick={this.props.onIncCounter}>Click</p>
                 <Col>
+                    {this.props.postsCount}
                     <h1>Posts</h1>
                     <div>{loadingData(this.props)}</div>
                 </Col>
@@ -108,4 +132,19 @@ class Posts extends Component {
         )
     }
 }
-export default Posts
+
+const mapStateToProps = (state) => {
+    
+    return {
+        postsCount:state.counter
+    }
+}
+
+const mapDispatchToProps = dispatch =>{
+    return {
+        onIncCounter:()=> dispatch({type:'INC_COUNT',data:[{username:'vinay'}]})
+        
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Posts)

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {Row, Col, Navbar, Form, Nav, FormControl, Button } from 'react-bootstrap';
+import {Row, Col, Navbar, Form, Nav, FormControl, Button} from 'react-bootstrap';
 class Header extends Component {
+    //static contextType = ThemeContext;
     render() {
         return (
             <Row>
                 <Col>
+                    
                     <Navbar bg="light" expand="lg">
                         <Navbar.Brand href="/">My Blog</Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />

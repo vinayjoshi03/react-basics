@@ -12,38 +12,30 @@ class AddPost extends Component {
     
     state={
         inputData:[],
-        title:null,
-        description:null,
-        status:1,
-        
+        postValues:{status:1, title:'', description:''},
     }
     handleSubmit(event) {
         event.preventDefault();
-        this.props.handleSubmit(this.state);
+        this.props.handleSubmit(this.state.postValues);
     }
-    async handleChange(event){
-        this.setState({[event.target.name]: event.target.value});
-        await this.props.validateFields(event.target.name, event.target.value);
+    handleChange(event){
+        let data = this.state.postValues;
+        data[event.target.name]=event.target.value;
+
+        this.setState({postValues:data});
+        this.props.validateFields(event.target.name, event.target.value);
     }
     render() {
         //this.props.errorMessage['title'];
-        const buttonStyle=()=>{
-            if(this.props.disableSubmit) {
-                return (
-                    <input variant="outline-success" className={'btn btn-outline-secondary'} disabled={this.disableSubmit} type="submit" value="Submit" />                    
-                )
-            } else {
-                    return (<input variant="outline-success" className={'btn btn-success'}  type="submit" value="Submit" />)
-            }
-        }
+        
         return (
             <div>
                 <Form method="POST" onSubmit={this.handleSubmit.bind(this) }>
                     <Form.Group controlId="exampleForm.ControlInput1">
                         <Form.Label>Post Title</Form.Label>
                         <Form.Control name="title" onChange={this.handleChange.bind(this)} type="text" placeholder="Post title"/>
-                        <p>
-                           {this.props.errorMessage['title']}
+                        <p style={{'color':'red'}}>
+                           {this.props.errorMessage.title}
                         </p>
                     </Form.Group>
                     <Form.Group controlId="exampleForm.ControlSelect1">
@@ -52,12 +44,18 @@ class AddPost extends Component {
                         <option>1</option>
                         <option>0</option>
                         </Form.Control>
+                        <p style={{'color':'red'}}>
+                           {this.props.errorMessage.status}
+                        </p>
                     </Form.Group>
                     <Form.Group  controlId="exampleForm.ControlTextarea1" onChange={this.handleChange.bind(this)}>
                         <Form.Label>Description</Form.Label>
                         <Form.Control name="description" as="textarea" rows="3" />
+                        <p style={{'color':'red'}}>
+                           {this.props.errorMessage.description}
+                        </p>
                     </Form.Group>
-                    {buttonStyle()}
+                    <input variant="outline-success" className={'btn btn-success'}  type="submit" value="Submit" />
                 </Form>           
             </div>
         )
