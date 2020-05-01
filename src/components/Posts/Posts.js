@@ -136,7 +136,7 @@ class Posts extends Component {
 const mapStateToProps = (state) => {
     
     return {
-        postsCount:state.counter
+        postsCount:state.post.counter
     }
 }
 

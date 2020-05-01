@@ -2,6 +2,8 @@ import React,{Component} from 'react'
 import {Table, Button} from 'react-bootstrap';
 import Axios from 'axios';
 import ModelComponent from '../../UI/ModalComponent/ModalComponent'
+import Paginate from './Paginate'
+import {connect} from 'react-redux'
 
 class PostGrid extends Component {
     state = {
@@ -72,11 +74,16 @@ class PostGrid extends Component {
               <tbody>
                 {PostData}
               </tbody>
-            </Table>           
+            </Table>
+            <Paginate />           
             <ModelComponent title={this.state.postTitle} modelBody={this.state.selectedPostBody} handleClose={this.handleModelClose.bind(this)} show={this.state.showModel}/>
             </div>
         );
     }
+}
+
+const mapStatesToProps=(reduxStates)=>{
+
 }
 
 export default PostGrid

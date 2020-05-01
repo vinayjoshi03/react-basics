@@ -4,7 +4,7 @@ let initialState = {
     isLoaded:false
 }
 
-const reducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action) => {
 
     if(action.type=='INC_COUNT') {
         return {
@@ -24,4 +24,4 @@ const reducer = (state = initialState, action) => {
     return state;
 }
 
-export default reducer;
+export default userReducer;

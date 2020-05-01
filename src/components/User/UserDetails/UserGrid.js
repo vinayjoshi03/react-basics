@@ -48,8 +48,8 @@ class UserGrid extends Component {
 
 const mapStatesToProps = (state) =>{
     return {
-        userDetails:state.users,
-        isLoaded:state.isLoaded
+        userDetails:state.user.users,
+        isLoaded:state.user.isLoaded
     }
 }
 
