@@ -36,12 +36,11 @@ class Posts extends Component {
             case 'title':
                     if(!value) {
                         errors[key]="Title field is required";
-                    } else if(value !='' && !new RegExp(letters).test(value)) {
+                    } else if(value !=='' && !new RegExp(letters).test(value)) {
                             errors[key]="Title should contain only charactors and spaces"
                     } else {
                         delete errors[key];
                     }
-                    
                     break;
             case 'description':        
                     if(value === '') {
@@ -50,16 +49,16 @@ class Posts extends Component {
                     } else {
                         delete errors[key];
                     }
-                    
-                    break;
-            case 'status':        
-                    if(value!=1) {
+                    break;                    
+            case 'status': 
+                    if(parseInt(value)!==1) {
                         errors[key]="Default status should be active";
                     } else {
                         delete errors[key];
                     }
                     
                     break;
+            default:
         }
         return errors;
     }
@@ -73,9 +72,10 @@ class Posts extends Component {
         let errors = {};
         Object.keys(data).map((key, index)=>{
             let error = this.validate(key, data[key], this.state.errorMessage);
-            if(typeof error[key] != 'undefined') {
+            if(typeof error[key] !== 'undefined') {
                 errors[key]=error[key];
             }
+            return null;
         });
         if(Object.keys(errors).length<=0) {
             this.setState({disableSubmit:false, errorMessage:errors});
@@ -87,13 +87,16 @@ class Posts extends Component {
             this.setState({showModel:true,modelBody:body,postTitle:"Add Post"});
             const postResponse = await this.props.addPostAction(data);
             if(postResponse.status === 200) {
+                
                 this.setState({modelBody:'Post Added Successfully'});
+
             }
         }
     }
 
     handleModelClose() {
         this.setState({showModel:false,modelBody:null});
+        window.logation='/post-listyw';
     }
     
     render() {
@@ -103,25 +106,24 @@ class Posts extends Component {
                     <PostGrid 
                     handleViewPost={this.handleViewPost.bind(this)} 
                     selectedPost={this.state.selectedPost} 
-                    postsData={this.props.postsData} 
                     />      
                 )
             }
             if(props.currentPage === 'addpost') {
               return (
-                  <div>
+                    <div>
                       <AddPost 
                             handleSubmit={this.handleSubmit.bind(this)}
                             disableSubmit={this.state.disableSubmit}   
                             validateFields={this.validateFields.bind(this)}
                             errorMessage={this.state.errorMessage}
-                            /></div>
+                        />
+                    </div>
               )  
             }
         }
         return (
             <Row>
-                <p onClick={this.props.onIncCounter}>Click</p>
                 <Col>
                     {this.props.postsCount}
                     <h1>Posts</h1>

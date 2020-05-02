@@ -10,7 +10,7 @@ export const showError=(message='')=>{
 }
 
 export const fetchPosts=(data)=>{
-    return dispatch=>{
+    return (dispatch)=>{
         dispatch(showLoading(true));
         Axios.get('http://localhost:1337/api/posts/getall').then(response=>{
             if(response.status === 200) {

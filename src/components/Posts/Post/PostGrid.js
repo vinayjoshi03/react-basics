@@ -2,7 +2,8 @@ import React,{Component} from 'react'
 import {Table, Button} from 'react-bootstrap';
 import Axios from 'axios';
 import ModelComponent from '../../UI/ModalComponent/ModalComponent'
-import Paginate from './Paginate'
+
+import {fetchPosts} from './../../../actions/postActions'
 import {connect} from 'react-redux'
 
 class PostGrid extends Component {
@@ -40,9 +41,11 @@ class PostGrid extends Component {
             }
         }
     }
-
+componentDidMount(){
+    this.props.getAllPosts();
+}
     render() {
-        let PostData = this.props.postsData.map((post,key)=> {
+        let PostData = this.props.postData.map((post,key)=> {
             return (
                 <tr key={post.id+"id"}>
                     <td>{post.title}</td>
@@ -74,16 +77,25 @@ class PostGrid extends Component {
               <tbody>
                 {PostData}
               </tbody>
-            </Table>
-            <Paginate />           
+            </Table>         
             <ModelComponent title={this.state.postTitle} modelBody={this.state.selectedPostBody} handleClose={this.handleModelClose.bind(this)} show={this.state.showModel}/>
             </div>
         );
     }
 }
 
-const mapStatesToProps=(reduxStates)=>{
-
+const mapStatesToProps=(state)=>{
+    return {
+        postData:state.post.posts
+    }
 }
 
-export default PostGrid
+const mapDispatchToProps=(dispatch)=>{
+    return {
+        getAllPosts:()=>{
+            dispatch(fetchPosts('data'))
+        }
+    };
+}
+
+export default connect(mapStatesToProps, mapDispatchToProps)(PostGrid)

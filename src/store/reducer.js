@@ -6,14 +6,14 @@ let initialState = {
 
 const userReducer = (state = initialState, action) => {
 
-    if(action.type=='INC_COUNT') {
+    if(action.type === 'INC_COUNT') {
         return {
             ...initialState,
             counter:state.counter+1 
         }
     }
 
-    if(action.type=='Add_USERS'){
+    if(action.type === 'Add_USERS'){
       return {...initialState,
         users:action.usersData,
         isLoaded:action.isLoaded

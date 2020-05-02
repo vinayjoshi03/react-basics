@@ -31,7 +31,8 @@ const postReducer = (state=initialState, action) => {
         errorMessage:action.payload.message
       }
     
-
+      default:
+      
   }
   return state;
 }

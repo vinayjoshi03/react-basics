@@ -16,6 +16,7 @@ class AddPost extends Component {
     }
     handleSubmit(event) {
         event.preventDefault();
+        console.log(this.state.postValues);
         this.props.handleSubmit(this.state.postValues);
     }
     handleChange(event){

@@ -24,7 +24,7 @@ class App extends Component{
 
   render() {
     return (
-      <Container id="root" border="primary">
+      <Container border="primary">
         <Router>
           <Layout>
             <Header />

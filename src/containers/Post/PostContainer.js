@@ -7,13 +7,7 @@ class PostContainer extends Component{
         isLoaded:false,
         postResponse:[]
     }
-    componentDidMount() {
-        Axios.get('http://localhost:1337/api/posts/getall').then(response=>{
-            this.setState({postsData:response.data.data, isLoaded:true});
-        }).catch(function(err){
-            console.log(err);
-        });
-    }
+    
     
     async addPostAction(data){
         
@@ -32,7 +26,6 @@ class PostContainer extends Component{
     render() {
         return (
             <Post 
-            postsData={this.state.postsData}
             currentPage={this.props.currentPage}
             addPostAction={this.addPostAction.bind(this)}
             />
