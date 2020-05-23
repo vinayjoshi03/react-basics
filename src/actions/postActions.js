@@ -1,6 +1,6 @@
 import * as actionTypes from './types'
 import Axios from 'axios';
-
+import {Promise} from 'bluebird'
 export const showLoading=(status=false)=>{
     return {type:actionTypes.SHOW_LOADING,payload:{showLoading:status}}
 }
@@ -23,6 +23,29 @@ export const fetchPosts=(data)=>{
         }).catch(function(err){
             dispatch(showLoading(false));
             dispatch(showError(err));
+        });
+    }
+}
+
+export const addNewPost=(data)=>{
+    return (dispatch)=>{
+        dispatch(showLoading(true));    
+           return Axios.post('http://localhost:1337/api/posts/create',data).then(response=>{
+                console.log("API RESPONSE-->",response);
+                if(response.status === 200) {
+                    dispatch({type:actionTypes.SHOW_ADD_SUCCESS,payload:{status:true}})
+                    dispatch(showLoading(false));
+                    dispatch(showError(""));
+                   //return  Promise.resolve('Post added successfully')
+                } else {
+                    dispatch(showLoading(false));
+                    dispatch(showError('Error Occure During fetching posts'));
+                    //return Promise.reject('Error occure during creating post')
+                }
+            }).catch(function(err){
+            dispatch(showLoading(false));
+            dispatch(showError(err));
+            //return Promise.reject('Error occure during creating post')
         });
     }
 }

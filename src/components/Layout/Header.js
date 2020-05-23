@@ -16,7 +16,6 @@ class Header extends Component {
                                 <Nav.Link href="/">Home</Nav.Link>
                                 <Nav.Link href="/users">Users</Nav.Link>
                                 <Nav.Link href="/post-list">Post list</Nav.Link>
-                                <Nav.Link href="/addpost">Add Post</Nav.Link>
                             </Nav>
                             <Form inline>
                                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />

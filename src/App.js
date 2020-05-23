@@ -38,9 +38,6 @@ class App extends Component{
               <Route path="/users">
                 <User />
               </Route>
-              <Route path="/addpost">
-                <PostContainer currentPage="addpost" />
-              </Route>
             </Switch>
             <Row><Col className="bg-light">Footer</Col></Row>
           </Layout>

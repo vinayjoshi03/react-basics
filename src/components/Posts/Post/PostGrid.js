@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import {Table, Button} from 'react-bootstrap';
 import Axios from 'axios';
 import ModelComponent from '../../UI/ModalComponent/ModalComponent'
-
+import AddPost from '../Post/AddPost'
 import {fetchPosts} from './../../../actions/postActions'
 import {connect} from 'react-redux'
 
@@ -30,6 +30,7 @@ class PostGrid extends Component {
 
     handleModelClose(){
         this.setState({showModel:false});
+        window.location="/post-list";
     }
 
     viewPostDetailsHandler(selectedPost) {
@@ -41,9 +42,16 @@ class PostGrid extends Component {
             }
         }
     }
-componentDidMount(){
-    this.props.getAllPosts();
-}
+    
+    createNewPost(event) {
+        this.setState({selectedPostBody:<div><AddPost /></div>, showModel:true});
+        
+    }
+
+    componentDidMount(){
+        this.props.getAllPosts();
+    }
+
     render() {
         let PostData = this.props.postData.map((post,key)=> {
             return (
@@ -66,19 +74,20 @@ componentDidMount(){
         
         return (
             <div>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>First Name</th>
-                  <th>Username</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {PostData}
-              </tbody>
-            </Table>         
-            <ModelComponent title={this.state.postTitle} modelBody={this.state.selectedPostBody} handleClose={this.handleModelClose.bind(this)} show={this.state.showModel}/>
+                <div onClick={()=>this.createNewPost()}>Create New Post</div>
+                <Table striped bordered hover>
+                <thead>
+                    <tr>
+                    <th>First Name</th>
+                    <th>Username</th>
+                    <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {PostData}
+                </tbody>
+                </Table>         
+                <ModelComponent title={this.state.postTitle} modelBody={this.state.selectedPostBody} handleClose={this.handleModelClose.bind(this)} show={this.state.showModel}/>
             </div>
         );
     }
@@ -86,9 +95,12 @@ componentDidMount(){
 
 const mapStatesToProps=(state)=>{
     return {
-        postData:state.post.posts
+        postData:state.post.posts,
+        isPostAdded: state.post.addPostSuccess,
+        showLoading: state.post.showLoading
     }
 }
+
 
 const mapDispatchToProps=(dispatch)=>{
     return {
