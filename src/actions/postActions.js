@@ -1,6 +1,6 @@
 import * as actionTypes from './types'
 import Axios from 'axios';
-import {Promise} from 'bluebird'
+//import {Promise} from 'bluebird'
 export const showLoading=(status=false)=>{
     return {type:actionTypes.SHOW_LOADING,payload:{showLoading:status}}
 }

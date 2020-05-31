@@ -9,6 +9,7 @@ import { Row, Col } from 'react-bootstrap';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Axios from 'axios';
 import {connect} from 'react-redux'
+import UserLogin from './containers/User/UserLogin'
 
 
 class App extends Component{
@@ -37,6 +38,9 @@ class App extends Component{
               </Route>
               <Route path="/users">
                 <User />
+              </Route>
+              <Route path="/login">
+                <UserLogin />
               </Route>
             </Switch>
             <Row><Col className="bg-light">Footer</Col></Row>
