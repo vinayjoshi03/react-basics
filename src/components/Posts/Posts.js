@@ -6,6 +6,7 @@ import ModelComponent from '../UI/ModalComponent/ModalComponent'
 import {connect} from 'react-redux'
 class Posts extends Component {
     constructor(props) {
+        console.log("Props---------->", props);
         super(props);
         //this.disableSubmit=true;
         this.state = {
@@ -33,7 +34,7 @@ class Posts extends Component {
 
     handleModelClose() {
         this.setState({showModel:false,modelBody:null});
-        window.logation='/post-listyw';
+        window.logation='/post-list';
     }
     
     render() {
@@ -59,6 +60,7 @@ class Posts extends Component {
               )  
             }
         }
+        console.log("Post component loaded..");
         return (
             <Row>
                 <Col>

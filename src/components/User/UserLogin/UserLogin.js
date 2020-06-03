@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form } from 'react-bootstrap'
 import {validateLoginForm} from '../../../util/validations'
+import {connect} from 'react-redux'
 
 class UserLogin extends Component {
     state = {
@@ -22,9 +23,6 @@ class UserLogin extends Component {
         }
         this.setState({errorMessages:response});
     }
-    
-
-
 
     render() {
         let userNameError = '';
@@ -39,7 +37,7 @@ class UserLogin extends Component {
         }
         return (
             <div>
-                <Form method="POST" onSubmit={this.handleSubmit.bind(this)}>
+                <Form className={bt["signin-form"]} method="POST" onSubmit={this.handleSubmit.bind(this)}>
                     <Form.Group controlId="exampleForm.ControlInput1">
                         <Form.Label>Username</Form.Label>
                         <Form.Control name="username" onChange={this.handleChange.bind(this)} type="text" placeholder="Username" />
@@ -57,6 +55,12 @@ class UserLogin extends Component {
                 </Form>
             </div>
         )
+    }
+}
+
+const mapSteteToProp = (state) =>{
+    return {
+        
     }
 }
 

@@ -94,6 +94,7 @@ class PostGrid extends Component {
 }
 
 const mapStatesToProps=(state)=>{
+    console.log("State--->", state);
     return {
         postData:state.post.posts,
         isPostAdded: state.post.addPostSuccess,

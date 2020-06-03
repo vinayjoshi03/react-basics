@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Axios from 'axios';
 import {connect} from 'react-redux'
 import UserLogin from './containers/User/UserLogin'
-
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component{
   state={
@@ -26,27 +26,24 @@ class App extends Component{
   render() {
     return (
       <Container border="primary">
-        <Router>
-          <Layout>
-            <Header />
-            <Switch>
-              <Route exact path="/">
-                <User />
-              </Route>
-              <Route path="/post-list">
-                <PostContainer currentPage="post-list" />
-              </Route>
-              <Route path="/users">
-                <User />
-              </Route>
-              <Route path="/login">
-                <UserLogin />
-              </Route>
-            </Switch>
-            <Row><Col className="bg-light">Footer</Col></Row>
-          </Layout>
-        </Router>
-      </Container>
+      <Router>
+        <Layout>
+          <Header />
+          <Switch>
+            <Route exact path="/">
+              <User />
+            </Route>
+            <Route path="/post-list">
+              <PostContainer currentPage="post-list" />
+            </Route>
+            <Route path="/users">
+              <User />
+            </Route>
+          </Switch>
+          <Row><Col className="bg-light">Footer</Col></Row>
+        </Layout>
+      </Router>
+    </Container>
     );
   }
 }

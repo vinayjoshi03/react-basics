@@ -8,9 +8,11 @@ import postReducer from './store/postReducer'
 import userReducer from './store/reducer'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const rootReducer = combineReducers({post:postReducer,user:userReducer});
+console.log("Reducer-->",rootReducer);
 const store = createStore(rootReducer, applyMiddleware(thunk));
 ReactDOM.render(
   <React.StrictMode>
