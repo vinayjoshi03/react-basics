@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Axios from 'axios';
 import {connect} from 'react-redux'
 import UserLogin from './containers/User/UserLogin'
+import ErrorBoundry from './components/UI/ErrorBoundry/ErrorBoundaryComponent'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 class App extends Component{
@@ -31,16 +32,16 @@ class App extends Component{
           <Header />
           <Switch>
             <Route exact path="/">
-              <User />
+              <ErrorBoundry><User /></ErrorBoundry>
             </Route>
             <Route path="/post-list">
-              <PostContainer currentPage="post-list" />
+            <ErrorBoundry><PostContainer currentPage="post-list" /></ErrorBoundry>
             </Route>
             <Route path="/users">
-              <User />
+            <ErrorBoundry><User /></ErrorBoundry>
             </Route>
             <Route path="/login">
-              <UserLogin />
+            <ErrorBoundry><UserLogin /></ErrorBoundry>
             </Route>
           </Switch>
           <Row><Col className="bg-light">Footer</Col></Row>
