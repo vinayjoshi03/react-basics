@@ -39,7 +39,7 @@ class PostGrid extends Component {
             this.setState({loadedPost:this.props.singlePostData, selectedPostBody:this.props.singlePostData.description, showModel:true});
         } else {
             this.setState({loadedPost:this.props.singlePostData, selectedPostBody:this.props.singlePostData.description, showModel:true});
-        }
+        } 
         
     }
 

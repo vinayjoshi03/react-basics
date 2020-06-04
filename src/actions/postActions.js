@@ -32,7 +32,6 @@ export const addNewPost=(data)=>{
     return (dispatch)=>{
         dispatch(showLoading(true));    
            return Axios.post('http://localhost:1337/api/posts/create',data).then(response=>{
-                console.log("API RESPONSE-->",response);
                 if(response.status === 200) {
                     dispatch({type:actionTypes.SHOW_ADD_SUCCESS,payload:{status:true}})
                     dispatch(showLoading(false));
@@ -57,11 +56,11 @@ export const getPostDetailsByPost=(postID)=>{
             if(response.status===200) {
                 dispatch({type:actionTypes.POST_DETAILS,payload:{data:response.data.data}});
             } else {
-                dispatch(showError('Error Occure During fetching posts 1111'));
+                dispatch(showError('Error Occure During fetching posts'));
             }
             
         }).catch(function(err) {
-            dispatch(showError('Error Occure During fetching posts 2222'));
+            dispatch(showError('Error Occure During fetching posts'));
         });
     }
 }
