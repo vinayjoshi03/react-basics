@@ -33,7 +33,7 @@ class Posts extends Component {
 
     handleModelClose() {
         this.setState({showModel:false,modelBody:null});
-        window.logation='/post-listyw';
+        window.logation='/post-list';
     }
     
     render() {

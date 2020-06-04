@@ -1,7 +1,8 @@
 import React,{Component} from 'react'
 import {Table} from 'react-bootstrap';
-
 import {connect} from 'react-redux'
+//import * as bs from 'bootstrap/dist/css/bootstrap.css';
+//import * as bst from 'bootstrap/dist/css/bootstrap-theme.css';
 class UserGrid extends Component {
     state = {
         users:[],
@@ -28,7 +29,8 @@ class UserGrid extends Component {
             )
         }
         return (
-            <Table striped bordered hover>
+            
+            <Table striped bordered hover className={'asfsfsd'}>
               <thead>
                 <tr>
                   <th>First Name</th>
@@ -41,7 +43,8 @@ class UserGrid extends Component {
               <tbody>
                 {UserData}
               </tbody>
-            </Table>           
+            </Table>  
+            
         );
     }
 }
