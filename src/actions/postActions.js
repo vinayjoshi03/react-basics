@@ -1,5 +1,6 @@
 import * as actionTypes from './types'
 import Axios from 'axios';
+import { Promise } from 'bluebird';
 //import {Promise} from 'bluebird'
 export const showLoading=(status=false)=>{
     return {type:actionTypes.SHOW_LOADING,payload:{showLoading:status}}
@@ -46,6 +47,21 @@ export const addNewPost=(data)=>{
             dispatch(showLoading(false));
             dispatch(showError(err));
             //return Promise.reject('Error occure during creating post')
+        });
+    }
+}
+
+export const getPostDetailsByPost=(postID)=>{
+    return (dispatch)=>{
+        return Axios.get('http://localhost:1337/api/posts/'+postID).then(response=>{
+            if(response.status===200) {
+                dispatch({type:actionTypes.POST_DETAILS,payload:{data:response.data.data}});
+            } else {
+                dispatch(showError('Error Occure During fetching posts 1111'));
+            }
+            
+        }).catch(function(err) {
+            dispatch(showError('Error Occure During fetching posts 2222'));
         });
     }
 }

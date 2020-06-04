@@ -39,6 +39,9 @@ class App extends Component{
             <Route path="/users">
               <User />
             </Route>
+            <Route path="/login">
+              <UserLogin />
+            </Route>
           </Switch>
           <Row><Col className="bg-light">Footer</Col></Row>
         </Layout>

@@ -7,11 +7,11 @@ let initialState = {
     errorMessage:'',
     pageCount:10,
     totalPostsCount:0, 
-    addPostSuccess:false
+    addPostSuccess:false, 
+    selectedPostData:{}
 }
 
 const postReducer = (state=initialState, action) => {
-  
   switch(action.type) {
 
     case actionTypes.SHOW_LOADING:
@@ -36,11 +36,15 @@ const postReducer = (state=initialState, action) => {
       }
 
       case actionTypes.SHOW_ADD_SUCCESS:
-        console.log("Into SHOW_ADD_SUCCESS");
-        console.log("Reducer Data:-->", action.type, action.payload);
         return {
           ...state,
           addPostSuccess:action.payload.status
+        }
+      case actionTypes.POST_DETAILS:
+        const selectedPost = action.payload.data;
+        return {
+          ...state,
+          selectedPostData:selectedPost
         }
 
       default:

@@ -12,7 +12,6 @@ import thunk from 'redux-thunk';
 
 
 const rootReducer = combineReducers({post:postReducer,user:userReducer});
-console.log("Reducer-->",rootReducer);
 const store = createStore(rootReducer, applyMiddleware(thunk));
 ReactDOM.render(
   <React.StrictMode>

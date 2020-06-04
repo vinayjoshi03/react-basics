@@ -25,6 +25,7 @@ class UserLogin extends Component {
     }
 
     render() {
+        console.log("component----->");
         let userNameError = '';
         let passwordError = '';
         if(Object.keys(this.state.errorMessages).length>0) {
@@ -37,7 +38,7 @@ class UserLogin extends Component {
         }
         return (
             <div>
-                <Form className={bt["signin-form"]} method="POST" onSubmit={this.handleSubmit.bind(this)}>
+                <Form method="POST" onSubmit={this.handleSubmit.bind(this)}>
                     <Form.Group controlId="exampleForm.ControlInput1">
                         <Form.Label>Username</Form.Label>
                         <Form.Control name="username" onChange={this.handleChange.bind(this)} type="text" placeholder="Username" />
@@ -55,12 +56,6 @@ class UserLogin extends Component {
                 </Form>
             </div>
         )
-    }
-}
-
-const mapSteteToProp = (state) =>{
-    return {
-        
     }
 }
 
